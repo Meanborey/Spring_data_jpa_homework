@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/user-accounts")
+@RequestMapping("/api/v1/userAccounts")
 public class UserAccountController {
     private final UserAccountService userAccountService;
-    @GetMapping
+    @GetMapping("/user-account")
     public CollectionModel<?> findUserAccount() {
         return userAccountService.findAllUserAccount();
     }
