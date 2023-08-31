@@ -2,13 +2,18 @@ package h_spring_data_jpa.init;
 
 import h_spring_data_jpa.account.Account;
 import h_spring_data_jpa.account.AccountRepository;
+import h_spring_data_jpa.transaction.Transaction;
+import h_spring_data_jpa.transaction.TransactionRepository;
 import h_spring_data_jpa.user.User;
 import h_spring_data_jpa.user.UserRepository;
+import h_spring_data_jpa.userAccount.UserAccount;
+import h_spring_data_jpa.userAccount.UserAccountRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,6 +23,8 @@ public class DataInitialization {
 
     private final UserRepository userRepository;
     private final AccountRepository accountRepository;
+    private final UserAccountRepository userAccountRepository;
+    private final TransactionRepository transactionRepository;
 
 
     @PostConstruct
@@ -96,6 +103,55 @@ public class DataInitialization {
                 .build();
         //Save account
         accountRepository.saveAll(List.of(account,account1,account2,account3));
+
+
+        UserAccount userAccount = UserAccount.builder()
+                                .user(user)
+                                .account(account)
+                                .isDisabled(true).build();
+        UserAccount userAccount2 = UserAccount.builder()
+                                    .isDisabled(true)
+                                    .build();
+        UserAccount userAccount3 = UserAccount.builder()
+                                    .isDisabled(true)
+                                    .build();
+        UserAccount userAccount4 = UserAccount.builder()
+                                    .isDisabled(true)
+                                    .build();
+        UserAccount userAccount5 = UserAccount.builder()
+                                    .isDisabled(true)
+                                    .build();
+       userAccountRepository.saveAll(List.of(userAccount,userAccount2,userAccount3,userAccount4,userAccount5));
+
+        Transaction transaction = Transaction.builder()
+                .transactionAt(LocalDateTime.now())
+                .amount(2000L)
+                .uuid(UUID.randomUUID().toString())
+                .remark("transfer successfully")
+                .studentCardNo("2334ffd")
+                .build();
+        Transaction transaction2 = Transaction.builder()
+                .transactionAt(LocalDateTime.now())
+                .amount(2000L)
+                .uuid(UUID.randomUUID().toString())
+                .remark("transfer successfully")
+                .studentCardNo("2334ffd")
+                .build();
+        Transaction transaction3 = Transaction.builder()
+                .transactionAt(LocalDateTime.now())
+                .amount(2000L)
+                .uuid(UUID.randomUUID().toString())
+                .remark("transfer successfully")
+                .studentCardNo("2334ffd")
+                .build();
+        Transaction transaction4 = Transaction.builder()
+                .transactionAt(LocalDateTime.now())
+                .amount(2000L)
+                .uuid(UUID.randomUUID().toString())
+                .remark("transfer successfully")
+                .studentCardNo("2334ffd")
+                .build();
+       transactionRepository.saveAll(List.of(transaction,transaction2,transaction3,transaction4));
 
     }
 
